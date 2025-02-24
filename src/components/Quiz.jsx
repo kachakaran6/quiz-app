@@ -1,17 +1,24 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
+import "./ans.css";
+import { data } from "../assets/data";
 
 const Quiz = () => {
-  let [index, setIndex] = useState(0);
-  // eslint-disable-next-line no-unused-vars
+  let [index, setIndex] = useState(1);
   let [question, setQuestion] = useState(data[index]);
+  let [lock, setLock] = useState(false);
+
+  let option_array = [opt1, opt2, opt3, opt4];
 
   const checkAns = (e, ans) => {
-    if (question.ans === ans) {
-      e.target.classList.add("correct");
-    } else {
-      e.target.classList.add("wrong");
+    if (lock === false) {
+      if (question.ans === ans) {
+        e.target.classList.add("correct");
+        setLock(true);
+      } else {
+        e.target.classList.add("wrong");
+        setLock(true);
+        option_array[question.ans - 1].current.classList.add("correct");
+      }
     }
   };
   return (
