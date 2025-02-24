@@ -3,7 +3,7 @@ import "./ans.css";
 import { data } from "../assets/data";
 
 const Quiz = () => {
-  let [index, setIndex] = useState(1);
+  let [index, setIndex] = useState(0);
   let [question, setQuestion] = useState(data[index]);
   let [lock, setLock] = useState(false);
   let [score, setScore] = useState(0);
@@ -46,74 +46,66 @@ const Quiz = () => {
       });
     }
   };
+
+  const reset = () => {
+    setIndex(0);
+    setQuestion(data[0]);
+    setScore(0);
+    setLock(false);
+    setResult(false);
+  };
   return (
-    <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-      <h1
-        className="text-4xl font-bold text-center"
-        style={{ color: "#9FA2FC" }}
-      >
-        Quiz App
-      </h1>
-      <hr className="mb-6" style={{ borderColor: "#9FA2FC" }} />
-      {result ? (
-        <></>
-      ) : (
-        <>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-            {index + 1}. {question.question}
-          </h2>
+    <div className="min-h-screen bg-gradient-to-r from-[#9FA2FC] to-[#6C79F7] flex items-center justify-center p-6">
+      <div className="max-w-4xl w-full bg-white p-8 rounded-xl shadow-xl">
+        <h1 className="text-4xl font-extrabold text-center text-[#9FA2FC] mb-6">
+          Quiz App
+        </h1>
+        <hr className="mb-6 border-t-4 border-[#9FA2FC] rounded" />
 
-          <ul className="list-disc pl-8 space-y-4">
-            <li
-              ref={opt1}
-              onClick={(e) => {
-                checkAns(e, 1);
-              }}
-              className="text-lg text-gray-700 hover:text-[#9FA2FC] cursor-pointer transition-all duration-300 ease-in-out"
+        {result ? (
+          <div className="text-center">
+            <h2 className="text-3xl font-semibold text-gray-800">
+              You scored {score} out of {data.length}
+            </h2>
+            <button
+              onClick={reset}
+              className="mt-6 px-8 py-3 bg-[#9FA2FC] text-white text-lg font-semibold rounded-full hover:bg-[#8a90e6] transition-all duration-300 ease-in-out"
             >
-              {question.opt1}
-            </li>
-            <li
-              ref={opt2}
-              onClick={(e) => {
-                checkAns(e, 2);
-              }}
-              className="text-lg text-gray-700 hover:text-[#9FA2FC] cursor-pointer transition-all duration-300 ease-in-out"
-            >
-              {question.opt2}
-            </li>
-            <li
-              ref={opt3}
-              onClick={(e) => {
-                checkAns(e, 3);
-              }}
-              className="text-lg text-gray-700 hover:text-[#9FA2FC] cursor-pointer transition-all duration-300 ease-in-out"
-            >
-              {question.opt3}
-            </li>
-            <li
-              ref={opt4}
-              onClick={(e) => {
-                checkAns(e, 4);
-              }}
-              className="text-lg text-gray-700 hover:text-[#9FA2FC] cursor-pointer transition-all duration-300 ease-in-out"
-            >
-              {question.opt4}
-            </li>
-          </ul>
-
-          <button
-            onClick={next}
-            className="mt-6 px-6 py-2 bg-[#9FA2FC] text-white rounded-md hover:bg-[#8a90e6] transition-all duration-300 ease-in-out"
-          >
-            Next
-          </button>
-
-          <div className="mt-4 text-center text-gray-600">
-            {index + 1}of {data.length} Questions
+              Restart Quiz
+            </button>
           </div>
-        </>
-      )}
+        ) : (
+          <>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+              {index + 1}. {question.question}
+            </h2>
+
+            <ul className="space-y-4">
+              {["opt1", "opt2", "opt3", "opt4"].map((opt, i) => (
+                <li
+                  key={i}
+                  ref={eval(opt)}
+                  onClick={(e) => checkAns(e, i + 1)}
+                  className="text-lg text-gray-700 p-4 rounded-lg cursor-pointer transition-all duration-300 ease-in-out hover:bg-[#9FA2FC] hover:text-white"
+                >
+                  {question[opt]}
+                </li>
+              ))}
+            </ul>
+
+            <button
+              onClick={next}
+              className="mt-6 px-8 py-3 bg-[#9FA2FC] text-white text-lg font-semibold rounded-full hover:bg-[#8a90e6] transition-all duration-300 ease-in-out"
+            >
+              Next Question
+            </button>
+
+            <div className="mt-6 text-center text-gray-600">
+              Question {index + 1} of {data.length}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
