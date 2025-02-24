@@ -1,8 +1,19 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 
 const Quiz = () => {
   let [index, setIndex] = useState(0);
-  let [question, setQuestion] = useState();
+  // eslint-disable-next-line no-unused-vars
+  let [question, setQuestion] = useState(data[index]);
+
+  const checkAns = (e, ans) => {
+    if (question.ans === ans) {
+      e.target.classList.add("correct");
+    } else {
+      e.target.classList.add("wrong");
+    }
+  };
   return (
     <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
       <h1
@@ -14,21 +25,41 @@ const Quiz = () => {
       <hr className="mb-6" style={{ borderColor: "#9FA2FC" }} />
 
       <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-        What is the full form of HTML?
+        {index + 1}. {question.question}
       </h2>
 
       <ul className="list-disc pl-8 space-y-4">
-        <li className="text-lg text-gray-700 hover:text-[#9FA2FC] cursor-pointer transition-all duration-300 ease-in-out">
-          Hyper Text Markup Language
+        <li
+          onClick={(e) => {
+            checkAns(e, 1);
+          }}
+          className="text-lg text-gray-700 hover:text-[#9FA2FC] cursor-pointer transition-all duration-300 ease-in-out"
+        >
+          {question.opt1}
         </li>
-        <li className="text-lg text-gray-700 hover:text-[#9FA2FC] cursor-pointer transition-all duration-300 ease-in-out">
-          Hyper Text Markup Lang
+        <li
+          onClick={(e) => {
+            checkAns(e, 2);
+          }}
+          className="text-lg text-gray-700 hover:text-[#9FA2FC] cursor-pointer transition-all duration-300 ease-in-out"
+        >
+          {question.opt2}
         </li>
-        <li className="text-lg text-gray-700 hover:text-[#9FA2FC] cursor-pointer transition-all duration-300 ease-in-out">
-          Hyper Text Manual Lang
+        <li
+          onClick={(e) => {
+            checkAns(e, 3);
+          }}
+          className="text-lg text-gray-700 hover:text-[#9FA2FC] cursor-pointer transition-all duration-300 ease-in-out"
+        >
+          {question.opt3}
         </li>
-        <li className="text-lg text-gray-700 hover:text-[#9FA2FC] cursor-pointer transition-all duration-300 ease-in-out">
-          Hybrid Text Manual Lang
+        <li
+          onClick={(e) => {
+            checkAns(e, 4);
+          }}
+          className="text-lg text-gray-700 hover:text-[#9FA2FC] cursor-pointer transition-all duration-300 ease-in-out"
+        >
+          {question.opt4}
         </li>
       </ul>
 
