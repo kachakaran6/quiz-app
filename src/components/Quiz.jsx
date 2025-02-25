@@ -121,27 +121,33 @@ const Quiz = () => {
         {/* Subject Selection Toggle */}
         <div className="mb-6">
           <label className="text-lg font-semibold">Select Subject: </label>
-          <div className="flex space-x-4">
-            <button
-              onClick={() => handleSubjectChange("AJP")}
-              className={`px-6 py-2 rounded-full ${
-                selectedSubject === "AJP"
-                  ? "bg-[#9FA2FC] text-white"
-                  : "bg-gray-200"
-              }`}
+          <div className="relative inline-block w-full sm:w-auto">
+            <select
+              onChange={(e) => handleSubjectChange(e.target.value)}
+              value={selectedSubject}
+              className="block appearance-none w-full bg-gradient-to-r from-[#6C79F7] to-[#9FA2FC] text-white py-3 px-6 pr-12 rounded-full shadow-xl focus:outline-none focus:ring-4 focus:ring-[#6C79F7] focus:border-transparent transition-all duration-300 ease-in-out"
             >
-              AJP
-            </button>
-            <button
-              onClick={() => handleSubjectChange("CG")}
-              className={`px-6 py-2 rounded-full ${
-                selectedSubject === "CG"
-                  ? "bg-[#9FA2FC] text-white"
-                  : "bg-gray-200"
-              }`}
-            >
-              CG
-            </button>
+              <option value="AJP">AJP</option>
+              <option value="CG">CG</option>
+              <option value="DCN">DCN</option>
+              <option value="AI">AI</option>
+            </select>
+            <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
+              <svg
+                className="w-5 h-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
           </div>
         </div>
 
@@ -150,20 +156,36 @@ const Quiz = () => {
           <label className="text-lg font-semibold">
             Select Number of Questions:{" "}
           </label>
-          <div className="flex space-x-4">
-            {[5, 10, 15].map((count) => (
-              <button
-                key={count}
-                onClick={() => handleQuestionCountChange(count)}
-                className={`px-6 py-2 rounded-full ${
-                  questionCount === count
-                    ? "bg-[#9FA2FC] text-white"
-                    : "bg-gray-200"
-                }`}
+          <div className="relative inline-block w-full sm:w-auto">
+            <select
+              onChange={(e) =>
+                handleQuestionCountChange(Number(e.target.value))
+              }
+              value={questionCount}
+              className="block appearance-none w-full bg-gradient-to-r from-[#6C79F7] to-[#9FA2FC] text-white py-3 px-6 pr-12 rounded-full shadow-xl focus:outline-none focus:ring-4 focus:ring-[#6C79F7] focus:border-transparent transition-all duration-300 ease-in-out"
+            >
+              {[5, 10, 15].map((count) => (
+                <option key={count} value={count}>
+                  {count}
+                </option>
+              ))}
+            </select>
+            <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
+              <svg
+                className="w-5 h-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                {count}
-              </button>
-            ))}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
           </div>
         </div>
 
